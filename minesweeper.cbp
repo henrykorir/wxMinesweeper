@@ -37,6 +37,7 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="minesweeper.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

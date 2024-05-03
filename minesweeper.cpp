@@ -10,6 +10,7 @@ class MainFrame : public wxFrame
 {
 public:
     MainFrame(const wxString&);
+    void OnExitProgram(wxCloseEvent&);
 private:
     wxButton * matrix[81];
     wxGridSizer * gridSizer;
@@ -17,9 +18,12 @@ private:
 };
 
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
+    EVT_CLOSE(MainFrame::OnExitProgram)
 wxEND_EVENT_TABLE()
+
+
 MainFrame::MainFrame(const wxString& title)
-    : wxFrame(NULL,wxID_ANY, title)
+    : wxFrame(NULL,wxID_ANY, title,wxDefaultPosition,wxDefaultSize,wxMINIMIZE_BOX | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
 {
     gridSizer = new wxGridSizer(9,9,0,0);
 
@@ -32,11 +36,17 @@ MainFrame::MainFrame(const wxString& title)
     gridSizer->Fit(this);
     gridSizer->SetSizeHints(this);
 
-    this->Center();
+
+    this->Centre();
 
     this->SetSizer(gridSizer);
 }
-
+void MainFrame::OnExitProgram(wxCloseEvent& event)
+{
+    if (wxMessageBox("Are you sure?") == wxOK){
+        Destroy();
+    }
+}
 wxDECLARE_APP(Minesweeper);
 wxIMPLEMENT_APP(Minesweeper);
 
