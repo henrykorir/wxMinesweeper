@@ -6,6 +6,8 @@ public:
     virtual bool OnInit();
 };
 
+class Cell;
+
 class MainFrame : public wxFrame
 {
 public:
@@ -13,12 +15,68 @@ public:
     ~MainFrame();
     void OnExitProgram(wxCloseEvent&);
     void OnButtonClick(wxCommandEvent&);
+    void OnMouseEvent(wxMouseEvent&);
 
 private:
-    wxButton * matrix[9][9];
+    Cell * matrix[9][9];
     wxGridSizer * gridSizer;
     wxDECLARE_EVENT_TABLE();
 };
+
+class Cell
+{
+public:
+    Cell();
+    Cell(int x, int y, wxWindow *);
+    void SetX(int x);
+    int GetX();
+    void SetY(int y);
+    int GetY();
+    wxButton * GetButton();
+private:
+    int x;
+    int y;
+    wxButton * button;
+
+};
+
+Cell::Cell()
+{
+    x = 0;
+    y = 0;
+}
+
+Cell::Cell(int x, int y, wxWindow * parrent)
+{
+    this->x = x;
+    this->y = y;
+    this->button = new wxButton(parrent, wxID_ANY,wxEmptyString,wxDefaultPosition,wxSize(70,70), wxBU_EXACTFIT);
+}
+
+void Cell::SetX(int x)
+{
+    this->x = x;
+}
+
+int Cell::GetX()
+{
+    return x;
+}
+
+void Cell::SetY(int y)
+{
+    this->y = y;
+}
+
+int Cell::GetY()
+{
+    return y;
+}
+
+wxButton * Cell::GetButton()
+{
+    return button;
+}
 
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_CLOSE(MainFrame::OnExitProgram)
@@ -35,8 +93,8 @@ MainFrame::MainFrame(const wxString& title)
     {
         for (int j = 0; j < 9; j++)
         {
-            matrix[i][j] = new wxButton(this, wxID_ANY,wxEmptyString,wxDefaultPosition,wxSize(70,70), wxBU_EXACTFIT);
-            gridSizer->Add(matrix[i][j]);
+            matrix[i][j] = new Cell(i,j, this);
+            gridSizer->Add(matrix[i][j]->GetButton());
         }
     }
 
@@ -52,9 +110,13 @@ MainFrame::~MainFrame()
 {
     for(int i = 0; i < 9; i++)
         for(int j = 0; j < 9; j++)
+        {
+            delete matrix[i][j]->GetButton();
             delete matrix[i][j];
+        }
     Destroy();
 }
+
 void MainFrame::OnExitProgram(wxCloseEvent& event)
 {
     Destroy();
