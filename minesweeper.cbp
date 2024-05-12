@@ -37,7 +37,10 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="field.cpp" />
+		<Unit filename="field.h" />
 		<Unit filename="minesweeper.cpp" />
+		<Unit filename="minesweeper.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
