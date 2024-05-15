@@ -52,6 +52,17 @@ void MainFrame::OnExitProgram(wxCloseEvent& event)
     Destroy();
 }
 
+void MainFrame::UnCoverNeighbour(int x, int y)
+{
+    matrix[x-1][y]->GetButton()->SetLabel(wxString::Format(wxT("A")));
+    matrix[x-1][y+1]->GetButton()->SetLabel(wxString::Format(wxT("B")));
+    matrix[x][y+1]->GetButton()->SetLabel(wxString::Format(wxT("C")));
+    matrix[x+1][y+1]->GetButton()->SetLabel(wxString::Format(wxT("D")));
+    matrix[x+1][y]->GetButton()->SetLabel(wxString::Format(wxT("E")));
+    matrix[x+1][y-1]->GetButton()->SetLabel(wxString::Format(wxT("F")));
+    matrix[x][y-1]->GetButton()->SetLabel(wxString::Format(wxT("G")));
+    matrix[x-1][y-1]->GetButton()->SetLabel(wxString::Format(wxT("H")));
+}
 wxDECLARE_APP(Minesweeper);
 wxIMPLEMENT_APP(Minesweeper);
 

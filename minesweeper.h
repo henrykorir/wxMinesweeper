@@ -18,8 +18,8 @@ public:
     MainFrame(const wxString&);
     ~MainFrame();
     void OnExitProgram(wxCloseEvent&);
-    void OnButtonClick(wxCommandEvent&);
     void OnMouseEvent(wxMouseEvent&);
+    void UnCoverNeighbour(int, int);
 
 private:
     Field * matrix[9][9];

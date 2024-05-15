@@ -1,5 +1,6 @@
 #include "wx/wx.h"
 #include "field.h"
+#include "minesweeper.h"
 
 Field::Field(wxFrame * parent, int x, int y, int type)
     : wxPanel(parent, wxID_ANY)
@@ -44,13 +45,15 @@ wxButton * Field::GetButton()
     return button;
 }
 
-
 void Field::OnButtonClick(wxCommandEvent& event)
 {
     button->SetFont(wxFont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false));
     button->SetLabel(wxString::Format(wxT("%d"),type));
     button->Enable(false);
     button->SetForegroundColour(wxColor(0,255,0));
+
+    MainFrame * parent = dynamic_cast<MainFrame*>(GetParent());
+    parent->UnCoverNeighbour(x,y);
 }
 
 wxBEGIN_EVENT_TABLE(Field, wxPanel)

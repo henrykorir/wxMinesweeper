@@ -14,6 +14,7 @@ public:
     void SetType(int type);
     int GetType();
     wxButton * GetButton();
+
 private:
     int x;
     int y;
