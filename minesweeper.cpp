@@ -52,16 +52,24 @@ void MainFrame::OnExitProgram(wxCloseEvent& event)
     Destroy();
 }
 
+bool MainFrame::isFieldValid(int x, int y)
+{
+    return ((x >= 0) && (x <= 8) && (y >= 0) && (y <= 8));
+}
+void MainFrame::labelField(int x, int y, const wxString& label)
+{
+    matrix[x][y]->GetButton()->SetLabel(label);
+}
 void MainFrame::UnCoverNeighbour(int x, int y)
 {
-    matrix[x-1][y]->GetButton()->SetLabel(wxString::Format(wxT("A")));
-    matrix[x-1][y+1]->GetButton()->SetLabel(wxString::Format(wxT("B")));
-    matrix[x][y+1]->GetButton()->SetLabel(wxString::Format(wxT("C")));
-    matrix[x+1][y+1]->GetButton()->SetLabel(wxString::Format(wxT("D")));
-    matrix[x+1][y]->GetButton()->SetLabel(wxString::Format(wxT("E")));
-    matrix[x+1][y-1]->GetButton()->SetLabel(wxString::Format(wxT("F")));
-    matrix[x][y-1]->GetButton()->SetLabel(wxString::Format(wxT("G")));
-    matrix[x-1][y-1]->GetButton()->SetLabel(wxString::Format(wxT("H")));
+    if(isFieldValid(x-1, y)) labelField(x-1,y,"A");
+    if(isFieldValid(x-1, y+1)) labelField(x-1,y+1,"B");
+    if(isFieldValid(x, y+1)) labelField(x,y+1,"C");
+    if(isFieldValid(x+1, y+1)) labelField(x+1,y+1,"D");
+    if(isFieldValid(x+1, y)) labelField(x+1,y,"E");
+    if(isFieldValid(x+1, y-1)) labelField(x+1,y-1,"F");
+    if(isFieldValid(x, y-1)) labelField(x,y-1,"G");
+    if(isFieldValid(x-1, y-1)) labelField(x-1,y-1,"H");
 }
 wxDECLARE_APP(Minesweeper);
 wxIMPLEMENT_APP(Minesweeper);

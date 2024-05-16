@@ -24,6 +24,8 @@ public:
 private:
     Field * matrix[9][9];
     wxGridSizer * gridSizer;
+    bool isFieldValid(int,int);
+    void labelField(int, int, const wxString&);
     wxDECLARE_EVENT_TABLE();
 };
 
