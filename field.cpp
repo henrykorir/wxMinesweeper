@@ -40,6 +40,14 @@ int Field::GetType()
 {
     return type;
 }
+void Field::SetID(int id)
+{
+    this->id = id;
+}
+int Field::GetID()
+{
+    return id;
+}
 wxButton * Field::GetButton()
 {
     return button;
@@ -53,7 +61,7 @@ void Field::OnButtonClick(wxCommandEvent& event)
     button->SetForegroundColour(wxColor(0,255,0));
 
     MainFrame * parent = dynamic_cast<MainFrame*>(GetParent());
-    parent->UnCoverNeighbour(x,y);
+    parent->UnCover(x,y);
 }
 
 wxBEGIN_EVENT_TABLE(Field, wxPanel)

@@ -13,12 +13,15 @@ public:
     int GetY();
     void SetType(int type);
     int GetType();
+    void SetID(int);
+    int GetID();
     wxButton * GetButton();
 
 private:
     int x;
     int y;
     int type;
+    int id;
     wxButton * button;
     void OnButtonClick(wxCommandEvent& );
     wxDECLARE_EVENT_TABLE();
