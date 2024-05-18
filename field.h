@@ -6,7 +6,7 @@
 class Field : public wxPanel
 {
 public:
-    Field(wxFrame *, int, int, int);
+    Field(wxFrame *, int, int, int, int);
     void SetX(int x);
     int GetX();
     void SetY(int y);

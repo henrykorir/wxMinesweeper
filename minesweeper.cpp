@@ -20,8 +20,7 @@ MainFrame::MainFrame(const wxString& title)
     {
         for (int j = 0; j < 9; j++)
         {
-            matrix[i][j] =  new Field(this, i,j, FIELD_EMPTY);
-            matrix[i][j]->SetId(id);
+            matrix[i][j] =  new Field(this, i,j, FIELD_EMPTY,id);
             if (rand()/(float)RAND_MAX < PROB)
                 matrix[i][j]->SetType(FIELD_MINE);
             gridSizer->Add(matrix[i][j]);
@@ -65,43 +64,75 @@ void MainFrame::UnCover(int x, int y)
     if(isFieldValid(x-1, y))
     {
         if (matrix[x-1][y]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x-1][y]);
+        else if(!instack[matrix[x-1][y]->GetID()])
+        {
+            st.push(matrix[x-1][y]);
+            instack[matrix[x-1][y]->GetID()] = true;
+        }
     }
 
     if(isFieldValid(x-1, y+1))
     {
         if (matrix[x-1][y+1]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x-1][y+1]);
+        else if(!instack[matrix[x-1][y+1]->GetID()])
+        {
+            st.push(matrix[x-1][y+1]);
+            instack[matrix[x-1][y+1]->GetID()] = true;
+        }
     }
     if(isFieldValid(x, y+1))
     {
         if (matrix[x][y+1]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x][y+1]);
+        else if(!instack[matrix[x][y+1]->GetID()])
+        {
+            st.push(matrix[x][y+1]);
+            instack[matrix[x][y+1]->GetID()] = true;
+        }
     }
     if(isFieldValid(x+1, y+1))
     {
         if (matrix[x+1][y+1]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x+1][y+1]);
+        else if(!instack[matrix[x+1][y+1]->GetID()])
+        {
+            st.push(matrix[x+1][y+1]);
+            instack[matrix[x+1][y+1]->GetID()] = true;
+        }
     }
     if(isFieldValid(x+1, y))
     {
         if (matrix[x+1][y]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x+1][y]);
+        else if(!instack[matrix[x+1][y]->GetID()])
+        {
+            st.push(matrix[x+1][y]);
+            instack[matrix[x+1][y]->GetID()] = true;
+        }
     }
     if(isFieldValid(x+1, y-1))
     {
         if (matrix[x+1][y-1]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x+1][y-1]);
+        else if(!instack[matrix[x+1][y-1]->GetID()])
+        {
+            st.push(matrix[x+1][y-1]);
+            instack[matrix[x+1][y-1]->GetID()] = true;
+        }
     }
     if(isFieldValid(x, y-1))
     {
         if (matrix[x][y-1]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x][y-1]);
+        else if(!instack[matrix[x][y-1]->GetID()])
+        {
+            st.push(matrix[x][y-1]);
+            instack[matrix[x][y-1]->GetID()] = true;
+        }
     }
     if(isFieldValid(x-1, y-1))
     {
         if (matrix[x-1][y-1]->GetType() == FIELD_MINE) countMines++;
-        else st.push(matrix[x-1][y-1]);
+        else if(!instack[matrix[x-1][y-1]->GetID()])
+        {
+            st.push(matrix[x-1][y-1]);
+            instack[matrix[x-1][y-1]->GetID()] = true;
+        }
     }
 
     matrix[x][y]->GetButton()->SetLabel(wxString::Format("%d",countMines));

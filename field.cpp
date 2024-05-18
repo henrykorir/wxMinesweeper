@@ -2,12 +2,13 @@
 #include "field.h"
 #include "minesweeper.h"
 
-Field::Field(wxFrame * parent, int x, int y, int type)
+Field::Field(wxFrame * parent, int x, int y, int type, int id)
     : wxPanel(parent, wxID_ANY)
 {
     this->x = x;
     this->y = y;
     this->type = type;
+    this->id = id;
     this->button = new wxButton(this, wxID_ANY,wxEmptyString,wxDefaultPosition,wxSize(70,70), wxBU_EXACTFIT);
 }
 
@@ -46,7 +47,7 @@ void Field::SetID(int id)
 }
 int Field::GetID()
 {
-    return id;
+    return this->id;
 }
 wxButton * Field::GetButton()
 {
