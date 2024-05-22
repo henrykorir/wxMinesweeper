@@ -5,7 +5,7 @@ if(NOT wxWidgets_FOUND)
     include(ExternalProject)
     ExternalProject_Add(
         wxWidgets
-        GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets
+        GIT_REPOSITORY git@github.com:wxWidgets/wxWidgets.git
         GIT_TAG v3.2.4
         EXCLUDE_FROM_ALL YES
     )
