@@ -9,7 +9,9 @@ if(NOT wxWidgets_FOUND)
         GIT_TAG v3.2.4
         STEP_TARGETS   build
     )
+    execute_process(COMMAND sudo ldconfig)
 endif()
+execute_process(COMMAND wx-config --version)
 include(${wxWidgets_USE_FILE})
 add_executable(wxMinesweeper field.cpp field.h minesweeper.cpp minesweeper.h)
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
