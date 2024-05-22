@@ -78,9 +78,7 @@ jobs:
           libwxgtk-webview3.2-0-unofficial-dbg \ 
           libwxbase3.2-0-unofficial-dbg \
           libwxgtk3.2-0-unofficial-dbg \
-          libwxgtk-media3.2-0-unofficial-dbg \
-          wx3.2-i18n \
-          wx3.2-examples
+          libwxgtk-media3.2-0-unofficial-dbg
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
