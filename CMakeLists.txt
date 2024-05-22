@@ -1,3 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(wxMinesweeper LANGUAGES CXX)
+find_package(wxWidgets COMPONENTS core base REQUIRED)
+include(${wxWidgets_USE_FILE})
 add_executable(wxMinesweeper field.cpp field.h minesweeper.cpp minesweeper.h)
+target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
