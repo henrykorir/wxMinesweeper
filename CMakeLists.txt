@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(wxMinesweeper LANGUAGES CXX)
-find_package(wxWidgets REQUIRED)
+#find_package(wxWidgets REQUIRED)
 #if(NOT wxWidgets_FOUND)
     find_package(libwxgtk2.8-dev)
     find_package(libwxgtk2.8-dbg)
