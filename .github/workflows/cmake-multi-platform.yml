@@ -54,9 +54,16 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-    - name: Install GTK
+    - name: Install wxwidgets
       run: |
-        sudo apt-get install -y build-essential libgtk2.0-dev libgtk-3-dev
+        deb http://apt.wxwidgets.org/ natty-wx main
+        deb-src http://apt.wxwidgets.org/ natty-wx main
+        curl http://apt.wxwidgets.org/key.asc | sudo apt-key add -
+        sudo apt-get update -y
+        sudo apt-get install -y wx2.8-headers libwxgtk2.8-0 libwxgtk2.8-dev
+        cd /usr/include
+        sudo ln -sv wx-2.8/wx wx
+      
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
