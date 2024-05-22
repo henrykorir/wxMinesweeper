@@ -6,7 +6,7 @@ find_package(wxWidgets)
     ExternalProject_Add(
         wxWidgets
         GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets
-        GIT_TAG origin/release/v3.2.4
+        GIT_TAG v3.2.4
         STEP_TARGETS   build
     )
 #endif()
