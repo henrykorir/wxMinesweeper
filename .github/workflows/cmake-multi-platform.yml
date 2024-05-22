@@ -57,28 +57,7 @@ jobs:
     - name: Add wxWidgets 3.2 packages
         # this is for build testing only, not shipping binaries, so don't bother verifying the key
       run: |
-        sudo apt-key adv --fetch-keys https://repos.codelite.org/CodeLite.asc
-        sudo apt-add-repository 'deb https://repos.codelite.org/wx3.2/ubuntu/ jammy universe'
-
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update && \
-        sudo apt upgrade -y && \
-        sudo apt-get install -y \
-          libwxbase3.2-0-unofficial \
-          libwxbase3.2unofficial-dev \
-          libwxgtk3.2-0-unofficial \
-          libwxgtk3.2unofficial-dev \
-          wx3.2-headers \
-          wx-common \
-          libwxgtk-media3.2-0-unofficial \
-          libwxgtk-media3.2unofficial-dev \
-          libwxgtk-webview3.2-0-unofficial \ 
-          libwxgtk-webview3.2unofficial-dev \ 
-          libwxgtk-webview3.2-0-unofficial-dbg \ 
-          libwxbase3.2-0-unofficial-dbg \
-          libwxgtk3.2-0-unofficial-dbg \
-          libwxgtk-media3.2-0-unofficial-dbg
+        sudo chmod +x script.sh && ./script.sh
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
