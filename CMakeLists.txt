@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 project(wxMinesweeper LANGUAGES CXX)
 find_package(wxWidgets)
 if(NOT wxWidgets_FOUND)
-    find_package(libwxgtk2.8-dev)
-    find_package(libwxgtk2.8-dbg)
+    execute_process(COMMAND apt install libwxgtk2.8-dev libwxgtk2.8-dbg)
+    # execute_process(COMMAND apt install libwxgtk2.8-dbg)
     include(ExternalProject)
     ExternalProject_Add(
         wxWidgets
