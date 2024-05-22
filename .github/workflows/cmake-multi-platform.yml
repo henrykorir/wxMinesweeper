@@ -62,7 +62,9 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        sudo apt-get install -y libwxbase3.2-0-unofficial \
+        sudo apt-get update && \
+        sudo apt-get install \
+          libwxbase3.2-0-unofficial \
           libwxbase3.2unofficial-dev \
           libwxgtk3.2-0-unofficial \
           libwxgtk3.2unofficial-dev \
