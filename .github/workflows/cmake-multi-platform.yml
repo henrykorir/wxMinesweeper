@@ -54,10 +54,10 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-    - name: Add wxWidgets 3.2 packages
-        # this is for build testing only, not shipping binaries, so don't bother verifying the key
-      run: |
-        sudo chmod +x script.sh && ./script.sh
+    # - name: Add wxWidgets 3.2 packages
+    #     # this is for build testing only, not shipping binaries, so don't bother verifying the key
+    #   run: |
+    #     sudo chmod +x script.sh && ./script.sh
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
