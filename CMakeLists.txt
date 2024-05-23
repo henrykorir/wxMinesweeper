@@ -10,7 +10,18 @@ if(NOT wxWidgets_FOUND)
         GIT_TAG v3.2.4
         STEP_TARGETS   build
     )
-    execute_process(COMMAND ls | grep wx)
+    if (UNIX)
+        execute_process(COMMAND sudo ln -sv wx-3.2/wx wx)
+    endif (UNIX)
+    
+    if (WIN32)
+        #execute_process(COMMAND sudo ln -sv wx-2.8/wx wx)
+    endif (WIN32)
+   
+    if (MSVC)
+        # do something
+    endif (MSVC)
+    
 endif()
 execute_process(COMMAND wx-config --version)
 include(${wxWidgets_USE_FILE})
