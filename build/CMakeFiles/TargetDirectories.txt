@@ -1,3 +1,0 @@
-/home/freedom/Desktop/work/minesweeper/build/CMakeFiles/wxMinesweeper.dir
-/home/freedom/Desktop/work/minesweeper/build/CMakeFiles/edit_cache.dir
-/home/freedom/Desktop/work/minesweeper/build/CMakeFiles/rebuild_cache.dir
