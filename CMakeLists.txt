@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(wxMinesweeper LANGUAGES CXX)
 find_package(wxWidgets)
 if(NOT wxWidgets_FOUND)
+    execute_process(COMMAND sudo apt-get install -y build-essential libgtk2.0-dev libgtk-3-dev)
     include(ExternalProject)
     ExternalProject_Add(
         wxWidgets
