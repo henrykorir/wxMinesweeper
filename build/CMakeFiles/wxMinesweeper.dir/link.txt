@@ -1,0 +1,1 @@
+/usr/bin/g++  -pthread -g CMakeFiles/wxMinesweeper.dir/field.cpp.o CMakeFiles/wxMinesweeper.dir/minesweeper.cpp.o -o wxMinesweeper   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib -L/usr/local/lib -pthread -lwx_gtk3u_xrc-3.2 -lwx_gtk3u_html-3.2 -lwx_gtk3u_qa-3.2 -lwx_gtk3u_core-3.2 -lwx_baseu_xml-3.2 -lwx_baseu_net-3.2 -lwx_baseu-3.2 
