@@ -3,6 +3,7 @@ project(wxMinesweeper LANGUAGES CXX)
 find_package(wxWidgets)
 if(NOT wxWidgets_FOUND)
     execute_process(COMMAND sudo apt-get install -y build-essential libgtk2.0-dev libgtk-3-dev)
+    execute_process(COMMAND sudo su)
     include(ExternalProject)
     ExternalProject_Add(
         wxWidgets
@@ -13,7 +14,7 @@ if(NOT wxWidgets_FOUND)
     if (UNIX)
         execute_process(COMMAND sudo ln -sv wx-3.2/wx wx)
     endif (UNIX)
-    
+
     if (WIN32)
         #execute_process(COMMAND sudo ln -sv wx-2.8/wx wx)
     endif (WIN32)
