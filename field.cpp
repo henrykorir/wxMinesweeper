@@ -57,12 +57,19 @@ wxButton * Field::GetButton()
 void Field::OnButtonClick(wxCommandEvent& event)
 {
     button->SetFont(wxFont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false));
-    button->SetLabel(wxString::Format(wxT("%d"),type));
     button->Enable(false);
-    button->SetForegroundColour(wxColor(0,255,0));
 
-    MainFrame * parent = dynamic_cast<MainFrame*>(GetParent());
-    parent->UnCover(x,y);
+    if(type == FIELD_MINE)
+    {
+        button->SetForegroundColour(wxColor(255,0,0));
+        button->SetLabel("M");
+    }
+    else
+    {
+        button->SetForegroundColour(wxColor(0,255,0));
+        MainFrame * parent = dynamic_cast<MainFrame*>(GetParent());
+        parent->UnCover(x,y);
+    }
 }
 
 wxBEGIN_EVENT_TABLE(Field, wxPanel)

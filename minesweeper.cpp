@@ -137,6 +137,13 @@ void MainFrame::UnCover(int x, int y)
 
     matrix[x][y]->GetButton()->SetLabel(wxString::Format("%d",countMines));
     visited[matrix[x][y]->GetID()] = true;
+
+    if(st.empty()) return;
+    Field * top = st.top();
+    st.pop();
+
+    UnCover(top->GetX(), top->GetY());
+
 }
 
 wxDECLARE_APP(Minesweeper);
