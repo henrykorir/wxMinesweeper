@@ -119,7 +119,9 @@ void MainFrame::UnCover(int x, int y)
             lh.push(matrix[x - 1][y - 1]);
     }
 
+    matrix[x][y]->GetButton()->SetFont(wxFont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false));
     matrix[x][y]->GetButton()->SetLabel(wxString::Format("%d", countMines));
+    matrix[x][y]->GetButton()->Enable(false);
     visited[matrix[x][y]->GetID()] = true;
 
     while (lh.size() > 0 && countMines == 0)
