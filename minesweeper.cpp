@@ -59,77 +59,83 @@ bool MainFrame::isFieldValid(int x, int y)
 void MainFrame::UnCover(int x, int y)
 {
     int countMines = 0;
-    wxStack<Field *> lookHaed;
+    wxStack<Field *> lh;
 
     if (isFieldValid(x - 1, y))
     {
         if (matrix[x - 1][y]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x - 1][y]->GetID()])
-            lookHaed.push(matrix[x - 1][y]);
+        else
+            lh.push(matrix[x - 1][y]);
     }
 
     if (isFieldValid(x - 1, y + 1))
     {
         if (matrix[x - 1][y + 1]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x - 1][y + 1]->GetID()])
-            lookHaed.push(matrix[x - 1][y + 1]);
+        else
+            lh.push(matrix[x - 1][y + 1]);
     }
     if (isFieldValid(x, y + 1))
     {
         if (matrix[x][y + 1]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x][y + 1]->GetID()])
-            lookHaed.push(matrix[x][y + 1]);
+        else
+            lh.push(matrix[x][y + 1]);
     }
     if (isFieldValid(x + 1, y + 1))
     {
         if (matrix[x + 1][y + 1]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x + 1][y + 1]->GetID()])
-            lookHaed.push(matrix[x + 1][y + 1]);
+        else
+            lh.push(matrix[x + 1][y + 1]);
     }
     if (isFieldValid(x + 1, y))
     {
         if (matrix[x + 1][y]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x + 1][y]->GetID()])
-            lookHaed.push(matrix[x + 1][y]);
+        else
+            lh.push(matrix[x + 1][y]);
     }
     if (isFieldValid(x + 1, y - 1))
     {
         if (matrix[x + 1][y - 1]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x + 1][y - 1]->GetID()])
-            lookHaed.push(matrix[x + 1][y - 1]);
+        else
+            lh.push(matrix[x + 1][y - 1]);
     }
     if (isFieldValid(x, y - 1))
     {
         if (matrix[x][y - 1]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x][y - 1]->GetID()])
-            lookHaed.push(matrix[x][y - 1]);
+        else
+            lh.push(matrix[x][y - 1]);
     }
     if (isFieldValid(x - 1, y - 1))
     {
         if (matrix[x - 1][y - 1]->GetType() == FIELD_MINE)
             countMines++;
-        else if (!instack[matrix[x - 1][y - 1]->GetID()])
-            lookHaed.push(matrix[x - 1][y - 1]);
+        else
+            lh.push(matrix[x - 1][y - 1]);
     }
 
     matrix[x][y]->GetButton()->SetLabel(wxString::Format("%d", countMines));
     visited[matrix[x][y]->GetID()] = true;
 
-    if (st.empty() || countMines > 0)
-        return;
-    while (lookHaed.size() > 0)
+    while (lh.size() > 0 && countMines == 0)
     {
-        Field *field = lookHaed.top();
-        instack[field->GetID()] = true;
-        st.push(field);
-        lookHaed.pop();
+        if (!instack[lh.top()->GetID()])
+        {
+            st.push(lh.top());
+            instack[lh.top()->GetID()] = true;
+        }
+        lh.pop();
+    }
+    if (st.empty())
+    {
+        while (lh.size() > 0)
+            lh.pop();
+        return;
     }
     Field *top = st.top();
     st.pop();
