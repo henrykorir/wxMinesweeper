@@ -6,12 +6,19 @@
 
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_CLOSE(MainFrame::OnExitProgram)
-        wxEND_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
-            MainFrame::MainFrame(const wxString &title)
+MainFrame::MainFrame(const wxString &title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxMINIMIZE_BOX)
 {
-    gridSizer = new wxGridSizer(9, 9, 0, 0);
+    wxBoxSizer * topSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer * dashSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxGridSizer * gridSizer = new wxGridSizer(9, 9, 0, 0);
+
+    wxPanel * top = new wxPanel(this,wxID_ANY,wxDefaultPosition);
+    wxStaticText * text = new wxStaticText(top,wxID_ANY,wxT("DASHBOARD"), wxDefaultPosition,wxDefaultSize, 0);
+    dashSizer->Add(top, 0, wxALL,4);
+
 
     int id = 0;
 
@@ -27,12 +34,14 @@ wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
         }
     }
 
-    gridSizer->Fit(this);
-    gridSizer->SetSizeHints(this);
+    topSizer->Add(dashSizer, 0, wxALIGN_CENTER_HORIZONTAL | wxALL,4);
+    topSizer->Add(gridSizer, 0, wxALIGN_CENTER  | wxALL, 4);
+    topSizer->Fit(this);
+    topSizer->SetSizeHints(this);
 
-    SetSizer(gridSizer);
+    SetSizer(topSizer);
 
-    Centre(wxBOTH);
+    this->Centre(wxBOTH);
 }
 
 MainFrame::~MainFrame()

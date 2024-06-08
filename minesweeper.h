@@ -27,7 +27,6 @@ private:
     wxStack<Field*> st;
     bool visited[81] {false};
     bool instack[81] {false};
-    wxGridSizer * gridSizer;
     bool isFieldValid(int,int);
     wxDECLARE_EVENT_TABLE();
 };
