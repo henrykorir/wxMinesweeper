@@ -5,20 +5,32 @@
 #include "minesweeper.h"
 #include "field.h"
 
+#include "red.xpm"
+#include "clock.xpm"
+
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_CLOSE(MainFrame::OnExitProgram)
+    EVT_TIMER(TIMER_ID, MainFrame::OnTimer)
 wxEND_EVENT_TABLE()
 
 MainFrame::MainFrame(const wxString &title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxMINIMIZE_BOX)
 {
+    SetIcon(wxIcon("logo.png",wxBITMAP_TYPE_PNG , -1,-1));
+    m_timer = new wxTimer(this, TIMER_ID);
+    m_timer->Start(1000);
+
     wxBoxSizer * topSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer * dashSizer = new wxBoxSizer(wxHORIZONTAL);
     wxGridSizer * gridSizer = new wxGridSizer(9, 9, 0, 0);
 
-    wxPanel * top = new wxPanel(this,wxID_ANY,wxDefaultPosition);
-    wxStaticText * text = new wxStaticText(top,wxID_ANY,wxT("DASHBOARD"), wxDefaultPosition,wxDefaultSize, 0);
-    dashSizer->Add(top, 0, wxALL,4);
+    wxSize size = GetClientSize();
+    topPanel = new wxPanel(this,wxID_ANY,wxDefaultPosition,wxSize(size.GetWidth(), 50),wxBORDER_SIMPLE);
+    text = new wxStaticText(topPanel,wxID_ANY,wxT("0"), wxDefaultPosition,wxDefaultSize, 0);
+    wxBitmap clock(clock_xpm);
+    wxBitmap::Rescale(clock, wxSize(32,32));
+    wxStaticBitmap* staticBitmap = new wxStaticBitmap(topPanel, wxID_STATIC,clock);
+    dashSizer->Add(topPanel);
 
 
     int id = 0;
@@ -38,14 +50,14 @@ MainFrame::MainFrame(const wxString &title)
         }
     }
 
-    topSizer->Add(dashSizer, 0, wxALIGN_CENTER_HORIZONTAL | wxALL,4);
-    topSizer->Add(gridSizer, 0, wxALIGN_CENTER  | wxALL, 4);
+    topSizer->Add(dashSizer);//, 0, wxALIGN_CENTER_HORIZONTAL | wxALL,4);
+    topSizer->Add(gridSizer);//, 0, wxALIGN_CENTER  | wxALL, 4);
     topSizer->Fit(this);
     topSizer->SetSizeHints(this);
 
     SetSizer(topSizer);
 
-    this->Centre(wxBOTH);
+    Centre(wxBOTH);
 }
 
 MainFrame::~MainFrame()
@@ -132,9 +144,10 @@ void MainFrame::UnCover(int x, int y)
             lh.push(matrix[x - 1][y - 1]);
     }
 
-    matrix[x][y]->GetButton()->SetFont(wxFont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false));
-    matrix[x][y]->GetButton()->SetLabel(wxString::Format("%d", countMines));
-    matrix[x][y]->GetButton()->Enable(false);
+    wxAnyButton * button = matrix[x][y]->GetButton();
+    button->SetFont(wxFont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false));
+    button->SetLabel(wxString::Format("%d", countMines));
+    //button->Enable(false);
     visited[matrix[x][y]->GetID()] = true;
 
     while (lh.size() > 0 && countMines == 0)
@@ -161,14 +174,29 @@ void MainFrame::UnCover(int x, int y)
 void MainFrame::Reveal()
 {
     int width = 9;
-    for(int i = 0; i < minesLoci.size(); i++)
+    for(long unsigned int i = 0; i < minesLoci.size(); i++)
     {
         int index = minesLoci[i];
-        wxButton * button = matrix[index / width][index %  width]->GetButton();
+        wxAnyButton * button = matrix[index / width][index %  width]->GetButton();
         button->SetForegroundColour(wxColor(255,0,0));
         button->SetLabel("M");
-        button->Disable();
+        //wxBitmap mine("logo.png",wxBITMAP_TYPE_PNG);
+        //button->SetBitmap(mine, wxLEFT);
+        //button->Disable();
     }
+    SetWindowStyle(wxWS_EX_BLOCK_EVENTS);
+}
+
+void MainFrame::OnTimer(wxTimerEvent& event)
+{
+    interval += event.GetInterval();
+    wxString s = wxString::Format("%d",interval/1000);
+    text->SetLabel(s);
+}
+
+void MainFrame::StopTimer()
+{
+    m_timer->Stop();
 }
 wxDECLARE_APP(Minesweeper);
 wxIMPLEMENT_APP(Minesweeper);

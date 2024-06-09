@@ -7,6 +7,7 @@
 #include "field.h"
 
 #define PROB 0.2
+#define TIMER_ID 1000
 
 class Minesweeper : public wxApp
 {
@@ -24,15 +25,16 @@ public:
     void UnCover(int, int);
     void Reveal();
 
+    void OnTimer(wxTimerEvent&);
+    void StopTimer();
+
 private:
-    class Point
-    {
-        public:
-        int x;
-        int y;
-    };
     Field * matrix[9][9];
+    wxPanel * topPanel;
+    int interval{0};
     std::vector<int> minesLoci;
+    wxTimer * m_timer;
+    wxStaticText * text;
     wxStack<Field*> st;
     bool visited[81] {false};
     bool instack[81] {false};

@@ -3,13 +3,14 @@
 #include "minesweeper.h"
 
 Field::Field(wxFrame * parent, int x, int y, int type, int id)
-    : wxPanel(parent, wxID_ANY)
+    : wxPanel(parent, wxID_ANY,wxDefaultPosition,wxDefaultSize,wxBORDER_SIMPLE)
 {
+    SetBackgroundColour(wxColor(211, 211, 211));
     this->x = x;
     this->y = y;
     this->type = type;
     this->id = id;
-    this->button = new wxButton(this, wxID_ANY,wxEmptyString,wxDefaultPosition,wxSize(70,70), wxBU_EXACTFIT);
+    this->button = new wxButton(this, wxID_ANY,wxEmptyString,wxDefaultPosition,wxSize(70,70), wxBORDER_NONE);
 }
 
 void Field::SetX(int x)
@@ -49,7 +50,7 @@ int Field::GetID()
 {
     return this->id;
 }
-wxButton * Field::GetButton()
+wxAnyButton * Field::GetButton()
 {
     return button;
 }
@@ -58,7 +59,10 @@ void Field::OnButtonClick(wxCommandEvent& event)
 {
     MainFrame * parent = dynamic_cast<MainFrame*>(GetParent());
     if(type == FIELD_MINE)
+    {
+        parent->StopTimer();
         parent->Reveal();
+    }
     else
         parent->UnCover(x,y);
 }

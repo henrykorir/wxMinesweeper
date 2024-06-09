@@ -37,10 +37,14 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="../../../Downloads/ic_launcher.png" />
+		<Unit filename="clock.xpm" />
 		<Unit filename="field.cpp" />
 		<Unit filename="field.h" />
+		<Unit filename="ic_launcher.png" />
 		<Unit filename="minesweeper.cpp" />
 		<Unit filename="minesweeper.h" />
+		<Unit filename="red.xpm" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

@@ -1631,22 +1631,24 @@
 1714995324 source:/home/freedom/Desktop/work/minesweeper/minesweeper/minesweeper.cpp
 	"wx/wx.h"
 
-1717932767 source:/home/freedom/Desktop/work/minesweeper/minesweeper.cpp
+1717968310 source:/home/freedom/Desktop/work/minesweeper/minesweeper.cpp
 	"wx/wx.h"
 	<stdlib.h>
 	<vector>
 	"minesweeper.h"
 	"field.h"
+	"red.xpm"
+	"clock.xpm"
 
-1717924711 source:/home/freedom/Desktop/work/minesweeper/field.cpp
+1717966564 source:/home/freedom/Desktop/work/minesweeper/field.cpp
 	"wx/wx.h"
 	"field.h"
 	"minesweeper.h"
 
-1716060291 /home/freedom/Desktop/work/minesweeper/field.h
+1717960345 /home/freedom/Desktop/work/minesweeper/field.h
 	"wx/wx.h"
 
-1717931288 /home/freedom/Desktop/work/minesweeper/minesweeper.h
+1717947304 /home/freedom/Desktop/work/minesweeper/minesweeper.h
 	"wx/wx.h"
 	"wx/stack.h"
 	<vector>
@@ -1655,4 +1657,8 @@
 1714306976 /usr/local/include/wx-3.2/wx/stack.h
 	"wx/vector.h"
 	<stack>
+
+1717953233 /home/freedom/Desktop/work/minesweeper/red.xpm
+
+1717954651 /home/freedom/Desktop/work/minesweeper/clock.xpm
 
