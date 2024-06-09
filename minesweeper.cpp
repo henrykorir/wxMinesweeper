@@ -1,5 +1,6 @@
 #include "wx/wx.h"
 #include <stdlib.h>
+#include <vector>
 
 #include "minesweeper.h"
 #include "field.h"
@@ -22,14 +23,17 @@ MainFrame::MainFrame(const wxString &title)
 
     int id = 0;
 
-    for (int i = 0; i < 9; i++)
+    for (int x = 0; x < 9; x++)
     {
-        for (int j = 0; j < 9; j++)
+        for (int y = 0; y < 9; y++)
         {
-            matrix[i][j] = new Field(this, i, j, FIELD_EMPTY, id);
+            matrix[x][y] = new Field(this, x, y, FIELD_EMPTY, id);
             if (rand() / (float)RAND_MAX < PROB)
-                matrix[i][j]->SetType(FIELD_MINE);
-            gridSizer->Add(matrix[i][j]);
+            {
+                matrix[x][y]->SetType(FIELD_MINE);
+                minesLoci.push_back((x * 9) + y);
+            }
+            gridSizer->Add(matrix[x][y]);
             id++;
         }
     }
@@ -60,7 +64,7 @@ void MainFrame::OnExitProgram(wxCloseEvent &event)
     Destroy();
 }
 
-bool MainFrame::isFieldValid(int x, int y)
+bool MainFrame::IsFieldValid(int x, int y)
 {
     return ((x >= 0) && (x <= 8) && (y >= 0) && (y <= 8));
 }
@@ -70,7 +74,7 @@ void MainFrame::UnCover(int x, int y)
     int countMines = 0;
     wxStack<Field *> lh;
 
-    if (isFieldValid(x - 1, y))
+    if (IsFieldValid(x - 1, y))
     {
         if (matrix[x - 1][y]->GetType() == FIELD_MINE)
             countMines++;
@@ -78,49 +82,49 @@ void MainFrame::UnCover(int x, int y)
             lh.push(matrix[x - 1][y]);
     }
 
-    if (isFieldValid(x - 1, y + 1))
+    if (IsFieldValid(x - 1, y + 1))
     {
         if (matrix[x - 1][y + 1]->GetType() == FIELD_MINE)
             countMines++;
         else
             lh.push(matrix[x - 1][y + 1]);
     }
-    if (isFieldValid(x, y + 1))
+    if (IsFieldValid(x, y + 1))
     {
         if (matrix[x][y + 1]->GetType() == FIELD_MINE)
             countMines++;
         else
             lh.push(matrix[x][y + 1]);
     }
-    if (isFieldValid(x + 1, y + 1))
+    if (IsFieldValid(x + 1, y + 1))
     {
         if (matrix[x + 1][y + 1]->GetType() == FIELD_MINE)
             countMines++;
         else
             lh.push(matrix[x + 1][y + 1]);
     }
-    if (isFieldValid(x + 1, y))
+    if (IsFieldValid(x + 1, y))
     {
         if (matrix[x + 1][y]->GetType() == FIELD_MINE)
             countMines++;
         else
             lh.push(matrix[x + 1][y]);
     }
-    if (isFieldValid(x + 1, y - 1))
+    if (IsFieldValid(x + 1, y - 1))
     {
         if (matrix[x + 1][y - 1]->GetType() == FIELD_MINE)
             countMines++;
         else
             lh.push(matrix[x + 1][y - 1]);
     }
-    if (isFieldValid(x, y - 1))
+    if (IsFieldValid(x, y - 1))
     {
         if (matrix[x][y - 1]->GetType() == FIELD_MINE)
             countMines++;
         else
             lh.push(matrix[x][y - 1]);
     }
-    if (isFieldValid(x - 1, y - 1))
+    if (IsFieldValid(x - 1, y - 1))
     {
         if (matrix[x - 1][y - 1]->GetType() == FIELD_MINE)
             countMines++;
@@ -154,6 +158,18 @@ void MainFrame::UnCover(int x, int y)
     UnCover(top->GetX(), top->GetY());
 }
 
+void MainFrame::Reveal()
+{
+    int width = 9;
+    for(int i = 0; i < minesLoci.size(); i++)
+    {
+        int index = minesLoci[i];
+        wxButton * button = matrix[index / width][index %  width]->GetButton();
+        button->SetForegroundColour(wxColor(255,0,0));
+        button->SetLabel("M");
+        button->Disable();
+    }
+}
 wxDECLARE_APP(Minesweeper);
 wxIMPLEMENT_APP(Minesweeper);
 

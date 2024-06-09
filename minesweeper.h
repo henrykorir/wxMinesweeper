@@ -3,6 +3,7 @@
 
 #include "wx/wx.h"
 #include "wx/stack.h"
+#include <vector>
 #include "field.h"
 
 #define PROB 0.2
@@ -21,13 +22,21 @@ public:
     void OnExitProgram(wxCloseEvent&);
     void OnMouseEvent(wxMouseEvent&);
     void UnCover(int, int);
+    void Reveal();
 
 private:
+    class Point
+    {
+        public:
+        int x;
+        int y;
+    };
     Field * matrix[9][9];
+    std::vector<int> minesLoci;
     wxStack<Field*> st;
     bool visited[81] {false};
     bool instack[81] {false};
-    bool isFieldValid(int,int);
+    bool IsFieldValid(int,int);
     wxDECLARE_EVENT_TABLE();
 };
 

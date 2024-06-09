@@ -56,16 +56,11 @@ wxButton * Field::GetButton()
 
 void Field::OnButtonClick(wxCommandEvent& event)
 {
+    MainFrame * parent = dynamic_cast<MainFrame*>(GetParent());
     if(type == FIELD_MINE)
-    {
-        button->SetForegroundColour(wxColor(255,0,0));
-        button->SetLabel("M");
-    }
+        parent->Reveal();
     else
-    {
-        MainFrame * parent = dynamic_cast<MainFrame*>(GetParent());
         parent->UnCover(x,y);
-    }
 }
 
 wxBEGIN_EVENT_TABLE(Field, wxPanel)
