@@ -24,14 +24,12 @@ MainFrame::MainFrame(const wxString &title)
     wxBoxSizer * dashSizer = new wxBoxSizer(wxHORIZONTAL);
     wxGridSizer * gridSizer = new wxGridSizer(9, 9, 0, 0);
 
-    wxSize size = GetClientSize();
-    topPanel = new wxPanel(this,wxID_ANY,wxDefaultPosition,wxSize(size.GetWidth(), 50),wxBORDER_SIMPLE);
-    text = new wxStaticText(topPanel,wxID_ANY,wxT("0"), wxDefaultPosition,wxDefaultSize, 0);
     wxBitmap clock(clock_xpm);
     wxBitmap::Rescale(clock, wxSize(32,32));
-    wxStaticBitmap* staticBitmap = new wxStaticBitmap(topPanel, wxID_STATIC,clock);
-    wxUnusedVar(staticBitmap);
-    dashSizer->Add(topPanel);
+    wxStaticBitmap* staticBitmap = new wxStaticBitmap(this, wxID_STATIC,clock);
+    text = new wxStaticText(this,wxID_ANY,wxT("0"), wxDefaultPosition,wxDefaultSize, 0);
+    dashSizer->Add(staticBitmap, 0, wxALIGN_CENTER, 10);
+    dashSizer->Add(text, 0, wxALIGN_CENTER, 10);
 
     int id = 0;
 
@@ -50,12 +48,12 @@ MainFrame::MainFrame(const wxString &title)
         }
     }
 
-    topSizer->Add(dashSizer, 0, wxALIGN_CENTER_HORIZONTAL);// | wxALL,4);
-    topSizer->Add(gridSizer, 0, wxALIGN_CENTER);//  | wxALL, 4);
-    topSizer->Fit(this);
-    topSizer->SetSizeHints(this);
+    topSizer->Add(dashSizer, 0, wxALIGN_CENTER | wxALL, 8);
+    topSizer->Add(gridSizer, 0, wxALIGN_CENTER);
 
     SetSizer(topSizer);
+    topSizer->Fit(this);
+    topSizer->SetSizeHints(this);
 
     Centre(wxBOTH);
 }
