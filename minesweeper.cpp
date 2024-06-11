@@ -16,7 +16,7 @@ wxEND_EVENT_TABLE()
 MainFrame::MainFrame(const wxString &title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxMINIMIZE_BOX)
 {
-    SetIcon(wxIcon("logo.png",wxBITMAP_TYPE_PNG , -1,-1));
+    SetIcon(wxIcon("logo.png",wxBITMAP_TYPE_PNG, -1,-1));
     m_timer = new wxTimer(this, TIMER_ID);
     m_timer->Start(1000);
 
@@ -30,8 +30,8 @@ MainFrame::MainFrame(const wxString &title)
     wxBitmap clock(clock_xpm);
     wxBitmap::Rescale(clock, wxSize(32,32));
     wxStaticBitmap* staticBitmap = new wxStaticBitmap(topPanel, wxID_STATIC,clock);
+    wxUnusedVar(staticBitmap);
     dashSizer->Add(topPanel);
-
 
     int id = 0;
 
@@ -50,8 +50,8 @@ MainFrame::MainFrame(const wxString &title)
         }
     }
 
-    topSizer->Add(dashSizer);//, 0, wxALIGN_CENTER_HORIZONTAL | wxALL,4);
-    topSizer->Add(gridSizer);//, 0, wxALIGN_CENTER  | wxALL, 4);
+    topSizer->Add(dashSizer, 0, wxALIGN_CENTER_HORIZONTAL);// | wxALL,4);
+    topSizer->Add(gridSizer, 0, wxALIGN_CENTER);//  | wxALL, 4);
     topSizer->Fit(this);
     topSizer->SetSizeHints(this);
 
@@ -146,8 +146,12 @@ void MainFrame::UnCover(int x, int y)
 
     wxAnyButton * button = matrix[x][y]->GetButton();
     button->SetFont(wxFont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false));
-    button->SetLabel(wxString::Format("%d", countMines));
-    //button->Enable(false);
+
+    if(countMines>0)button->SetLabel(wxString::Format("%d", countMines));
+    Field* field = matrix[x][y];
+    if(countMines == 0)
+        field->SetBackgroundColour(wxColor(254,254,254));
+
     visited[matrix[x][y]->GetID()] = true;
 
     while (lh.size() > 0 && countMines == 0)
@@ -173,8 +177,8 @@ void MainFrame::UnCover(int x, int y)
 
 void MainFrame::Reveal()
 {
-    int width = 9;
-    for(long unsigned int i = 0; i < minesLoci.size(); i++)
+    size_t width = 9, numberOfFields = 81;
+    for(size_t i = 0; i < minesLoci.size(); i++)
     {
         int index = minesLoci[i];
         wxAnyButton * button = matrix[index / width][index %  width]->GetButton();
@@ -184,7 +188,11 @@ void MainFrame::Reveal()
         //button->SetBitmap(mine, wxLEFT);
         //button->Disable();
     }
-    SetWindowStyle(wxWS_EX_BLOCK_EVENTS);
+
+    for(size_t idx = 0; idx < numberOfFields; idx++)
+    {
+        dynamic_cast<wxWindow *>(matrix[idx / numberOfFields][idx %  numberOfFields])->Disable();
+    }
 }
 
 void MainFrame::OnTimer(wxTimerEvent& event)
