@@ -67,6 +67,13 @@ void Field::OnButtonClick(wxCommandEvent& event)
         parent->UnCover(x,y);
 }
 
+void Field::OnMouseRightClick(wxMouseEvent& event)
+{
+    this->SetBackgroundColour(wxColor(128, 128, 128));
+    wxMessageBox("HEYYEY");
+}
+
 wxBEGIN_EVENT_TABLE(Field, wxPanel)
     EVT_BUTTON(wxID_ANY, Field::OnButtonClick)
+    EVT_RIGHT_DOWN(Field::OnMouseRightClick)
 wxEND_EVENT_TABLE()

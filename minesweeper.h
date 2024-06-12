@@ -34,11 +34,13 @@ private:
     int interval{0};
     std::vector<int> minesLoci;
     wxTimer * m_timer;
-    wxStaticText * text;
+    wxStaticText * clockText;
+    wxStaticText * flagText;
     wxStack<Field*> st;
     bool visited[81] {false};
     bool instack[81] {false};
     bool IsFieldValid(int,int);
+    wxString FormatClock();
     wxDECLARE_EVENT_TABLE();
 };
 

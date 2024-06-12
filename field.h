@@ -16,6 +16,7 @@ public:
     void SetID(int);
     int GetID();
     wxAnyButton * GetButton();
+    void OnMouseRightClick(wxMouseEvent&);
 
 private:
     int x;
