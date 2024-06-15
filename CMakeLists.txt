@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.5)
 
 project(wxMinesweeper LANGUAGES CXX)
 
+set(CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS
+     OWNER_READ
+     OWNER_WRITE
+     OWNER_EXECUTE
+     GROUP_READ
+   )
+
 include(ExternalProject)
 ExternalProject_Add(wxwidgets
   GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
