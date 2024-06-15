@@ -5,7 +5,17 @@ project(wxMinesweeper LANGUAGES CXX)
 set(CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS
   OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE WORLD_READ WORLD_WRITE WORLD_EXECUTE SETUID SETGID
    )
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/include/wx-3.2/wx)
+   execute_process(
+    COMMAND sudo mkdir -p /usr/local/include/wx-3.2/
+    RESULT_VARIABLE mkdir_result
+)
+
+if(mkdir_result EQUAL 0)
+    message("Directory created successfully or already exists.")
+else()
+    message("Failed to create directory.")
+endif()
+
 include(ExternalProject)
 ExternalProject_Add(wxwidgets
   GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
