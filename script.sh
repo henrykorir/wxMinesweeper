@@ -1,5 +1,5 @@
 sudo apt-get install -y build-essential libgtk2.0-dev libgtk-3-dev
-git clone https://github.com/wxWidgets/wxWidgets.git
+git clone --recurse-submodules https://github.com/wxWidgets/wxWidgets.git
 cd wxWidgets     
 mkdir gtk-build             # the name is not really relevant
 cd gtk-build

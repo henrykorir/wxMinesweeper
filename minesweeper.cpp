@@ -42,6 +42,7 @@ MainFrame::MainFrame(const wxString &title)
 
     dashSizer->Add(clockSizer, 0, wxALIGN_CENTER | wxALL);
     dashSizer->Add(flagSizer, 0, wxALIGN_CENTER | wxALL);
+    srand((unsigned)time(NULL));
 
     int id = 0;
 
@@ -60,7 +61,7 @@ MainFrame::MainFrame(const wxString &title)
         }
     }
 
-    topSizer->Add(dashSizer, 0, wxALIGN_CENTER | wxALL, 2);
+    topSizer->Add(dashSizer, 0, wxALIGN_CENTER | wxALL, 4);
     topSizer->Add(gridSizer, 0, wxALIGN_CENTER);
 
     SetSizer(topSizer);
@@ -235,8 +236,6 @@ wxIMPLEMENT_APP(Minesweeper);
 
 bool Minesweeper::OnInit()
 {
-    srand((unsigned)time(NULL));
-
     if (!wxApp::OnInit())
         return false;
 
