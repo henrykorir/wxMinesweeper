@@ -5,7 +5,7 @@ project(wxMinesweeper LANGUAGES CXX)
 include(ExternalProject)
 ExternalProject_Add(wxwidgets
   GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
-  GIT_TAG        origin/release/v3.2.4
+  GIT_TAG        origin/release/3.2.4
   STEP_TARGETS   build
 )
 aux_source_directory(. SRC_LIST)
