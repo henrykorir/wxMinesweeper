@@ -33,7 +33,7 @@ aux_source_directory(. SRC_LIST)
 
 add_subdirectory(wxWidgets)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries(${PROJECT_NAME}  wx::net wx::core wx::base wx::xrc wx::qa wx::gl wx::xml)
+target_link_libraries(${PROJECT_NAME}  wxwidgets::net wxwidgets::core wxwidgets::base wxwidgets::xrc wxwidgets::qa wxwidgets::gl wxwidgets::xml)
 
 # List all files in the current directory
 file(GLOB CURRENT_DIR_CONTENTS build)
