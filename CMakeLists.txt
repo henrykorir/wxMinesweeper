@@ -36,7 +36,7 @@ add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(${PROJECT_NAME}  wx::net wx::core wx::base wx::xrc wx::qa wx::gl wx::xml)
 
 # List all files in the current directory
-file(GLOB CURRENT_DIR_CONTENTS *)
+file(GLOB CURRENT_DIR_CONTENTS build)
 
 # Print out each file found
 foreach(FILE ${CURRENT_DIR_CONTENTS})
