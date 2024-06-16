@@ -58,6 +58,10 @@ jobs:
 
     - name: Add wxWidgets 3.2 packages
         # this is for build testing only, not shipping binaries, so don't bother verifying the key
+      run: |
+        git clone --recurse-submodules -j5 https://github.com/wxWidgets/wxWidgets.git
+
+    - name: Check os ubuntu
       if: ${{matrix.os == 'ubuntu-latest'}}
       run: |
         sudo apt-get update -y && sudo apt-get install -y libsecret-1-dev libcurl4-openssl-dev cmake apt-utils git wget build-essential libgtk2.0-dev libgtk-3-dev
