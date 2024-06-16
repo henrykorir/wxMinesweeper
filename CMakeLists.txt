@@ -30,7 +30,7 @@ aux_source_directory(. SRC_LIST)
 #endif()
 # add_executable(${PROJECT_NAME} ${SRC_LIST})
 # target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
-set(wxBUILD_MONOLITHIC OUTPUT_NAME)
+set(wxBUILD_MONOLITHIC ON)
 
 add_subdirectory(wxWidgets)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
