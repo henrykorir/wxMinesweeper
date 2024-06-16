@@ -34,3 +34,11 @@ aux_source_directory(. SRC_LIST)
 add_subdirectory(wxWidgets)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(${PROJECT_NAME}  wx::net wx::core wx::base)
+
+# List all files in the current directory
+file(GLOB CURRENT_DIR_CONTENTS *)
+
+# Print out each file found
+foreach(FILE ${CURRENT_DIR_CONTENTS})
+    message("File found: ${FILE}")
+endforeach()
