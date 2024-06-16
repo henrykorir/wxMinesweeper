@@ -90,5 +90,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: minesweeper
-        path: ./wxMinesweeper
+        path: /home/runner/work/wxMinesweeper/wxMinesweeper/wxMinesweeper
         overwrite: true
