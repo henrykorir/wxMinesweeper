@@ -31,7 +31,7 @@ aux_source_directory(. SRC_LIST)
 # add_executable(${PROJECT_NAME} ${SRC_LIST})
 # target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
 
-add_subdirectory(wxWidgets)
+add_subdirectory(libs/wxWidgets)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(${PROJECT_NAME}  wx::net wx::core wx::base wx::xrc wx::qa wx::gl wx::xml)
 
