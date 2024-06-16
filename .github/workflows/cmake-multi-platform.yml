@@ -91,4 +91,4 @@ jobs:
       with:
         name: minesweeper
         path: ./wxMinesweeper
-        overwrite: tr
+        overwrite: true
