@@ -24,6 +24,16 @@ project(wxMinesweeper LANGUAGES CXX)
 # )
 aux_source_directory(. SRC_LIST)
 
+# Copy images to the binary directory during build
+
+file(COPY 
+    ${PROJECT_SOURCE_DIR}/logo.png 
+    ${PROJECT_SOURCE_DIR}/mine.png
+    ${PROJECT_SOURCE_DIR}/clock.xpm
+    ${PROJECT_SOURCE_DIR}/red-flag.png
+    DESTINATION ${CMAKE_BINARY_DIR}
+)
+
 #find_package(wxWidgets REQUIRED COMPONENTS net core base)
 #if(wxWidgets_USE_FILE) # not defined in CONFIG mode
 #    include(${wxWidgets_USE_FILE})
