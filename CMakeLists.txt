@@ -54,6 +54,8 @@ foreach(FILE ${CURRENT_DIR_CONTENTS})
     message("File found: ${FILE}")
 endforeach()
 
-foreach(FILE ${PROJECT_BINARY_DIR})
-    message("File found: ${FILE}")
-endforeach()
+message(STATUS "CMake source directory: ${CMAKE_SOURCE_DIR}")
+message(STATUS "CMake binary directory: ${CMAKE_BINARY_DIR}")
+message(STATUS "Project source directory: ${PROJECT_SOURCE_DIR}")
+message(STATUS "Project binary directory: ${PROJECT_BINARY_DIR}")
+
