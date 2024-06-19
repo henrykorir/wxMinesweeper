@@ -53,3 +53,7 @@ file(GLOB CURRENT_DIR_CONTENTS build)
 foreach(FILE ${CURRENT_DIR_CONTENTS})
     message("File found: ${FILE}")
 endforeach()
+
+foreach(FILE ${PROJECT_BINARY_DIR})
+    message("File found: ${FILE}")
+endforeach()
