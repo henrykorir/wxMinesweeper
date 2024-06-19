@@ -16,7 +16,7 @@ wxEND_EVENT_TABLE()
 MainFrame::MainFrame(const wxString &title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxMINIMIZE_BOX)
 {
-    SetIcon(wxIcon("mine.png",wxBITMAP_TYPE_PNG, -1,-1));
+    SetIcon(wxIcon("./mine.png",wxBITMAP_TYPE_PNG, -1,-1));
     m_timer = new wxTimer(this, TIMER_ID);
     m_timer->Start(1000);
 
@@ -33,7 +33,7 @@ MainFrame::MainFrame(const wxString &title)
     clockSizer->Add(staticBitmap, 0, wxCENTER);
     clockSizer->Add(clockText, 0, wxCENTER);
 
-    wxBitmap flag("red-flag.png", wxBITMAP_TYPE_PNG);
+    wxBitmap flag("./red-flag.png", wxBITMAP_TYPE_PNG);
     wxBitmap::Rescale(flag, wxSize(24,24));
     wxStaticBitmap* flagBitmap = new wxStaticBitmap(this, wxID_STATIC,flag);
     flagText = new wxStaticText(this,wxID_ANY,wxT("0"), wxDefaultPosition,wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
@@ -194,7 +194,7 @@ void MainFrame::Reveal()
         int index = minesLoci[i];
         wxAnyButton * button = matrix[index / width][index %  width]->GetButton();
         button->SetForegroundColour(wxColor(255,0,0));
-        wxBitmap mine("logo.png",wxBITMAP_TYPE_PNG);
+        wxBitmap mine("./logo.png",wxBITMAP_TYPE_PNG);
         button->SetBitmap(mine, wxLEFT);
     }
 
