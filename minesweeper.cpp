@@ -17,6 +17,15 @@ MainFrame::MainFrame(const wxString &title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxMINIMIZE_BOX)
 {
     SetIcon(wxIcon("./mine.png",wxBITMAP_TYPE_PNG, -1,-1));
+
+    //Adding menubar and menus
+    wxMenu * m_menu = new wxMenu();
+    m_menu->Append(wxID_OPEN, wxT("&New"));
+    m_menu->Append(wxID_EXIT, wxT("&Exit"));
+    wxMenuBar * m_menubar = new wxMenuBar();
+    m_menubar->Append(m_menu, wxT("File"));
+    SetMenuBar(m_menubar);
+
     m_timer = new wxTimer(this, TIMER_ID);
     m_timer->Start(1000);
 
