@@ -55,7 +55,6 @@ MainFrame::MainFrame(const wxString &title)
     dashSizer->Add(flagSizer, 0, wxALIGN_CENTER | wxALL);
     srand((unsigned)time(NULL));
 
-    // status bar
     wxStatusBar * m_status = new wxStatusBar(this, wxID_ANY, wxST_SIZEGRIP);
     int widths[] = { 60, 60, -1 };
     m_status->SetFieldsCount(WXSIZEOF(widths), widths);
@@ -249,6 +248,16 @@ void MainFrame::OnTimer(wxTimerEvent& event)
 void MainFrame::StopTimer()
 {
     m_timer->Stop();
+}
+
+void MainFrame::OnNewGame(wxCommandEvent& WXUNUSED(event))
+{
+    wxMessageBox("Are you sure?");
+}
+
+void MainFrame::OnExitGame(wxCommandEvent& WXUNUSED(event))
+{
+    Destroy();
 }
 
 void MainFrame::OnNewGame(wxCommandEvent& WXUNUSED(event))
