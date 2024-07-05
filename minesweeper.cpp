@@ -52,12 +52,13 @@ MainFrame::MainFrame(const wxString &title)
     flagSizer->Add(flagText, 0, wxCENTER);
 
     dashSizer->Add(clockSizer, 0, wxALIGN_CENTER | wxALL);
+    dashSizer->AddSpacer(24);
     dashSizer->Add(flagSizer, 0, wxALIGN_CENTER | wxALL);
     srand((unsigned)time(NULL));
 
     // status bar
     wxStatusBar * m_status = new wxStatusBar(this, wxID_ANY, wxST_SIZEGRIP);
-    int widths[] = { 60, 60, -1 };
+    int widths[] = { 200, 60, -1 };
     m_status->SetFieldsCount(WXSIZEOF(widths), widths);
     m_status->SetStatusText(_("Ready"),0);
 
