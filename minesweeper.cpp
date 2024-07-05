@@ -11,6 +11,8 @@
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_CLOSE(MainFrame::OnExitProgram)
     EVT_TIMER(TIMER_ID, MainFrame::OnTimer)
+    EVT_MENU(wxID_NEW, MainFrame::OnNewGame)
+    EVT_MENU(wxID_EXIT, MainFrame::OnExitGame)
 wxEND_EVENT_TABLE()
 
 MainFrame::MainFrame(const wxString &title)
@@ -20,7 +22,7 @@ MainFrame::MainFrame(const wxString &title)
 
     //Adding menubar and menus
     wxMenu * m_menu = new wxMenu();
-    m_menu->Append(wxID_OPEN, wxT("&New"));
+    m_menu->Append(wxID_NEW, wxT("&New"));
     m_menu->Append(wxID_EXIT, wxT("&Exit"));
     wxMenuBar * m_menubar = new wxMenuBar();
     m_menubar->Append(m_menu, wxT("File"));
@@ -52,6 +54,14 @@ MainFrame::MainFrame(const wxString &title)
     dashSizer->Add(clockSizer, 0, wxALIGN_CENTER | wxALL);
     dashSizer->Add(flagSizer, 0, wxALIGN_CENTER | wxALL);
     srand((unsigned)time(NULL));
+
+    // status bar
+    wxStatusBar * m_status = new wxStatusBar(this, wxID_ANY, wxST_SIZEGRIP);
+    int widths[] = { 60, 60, -1 };
+    m_status->SetFieldsCount(WXSIZEOF(widths), widths);
+    m_status->SetStatusText(_("Ready"),0);
+
+    SetStatusBar(m_status);
 
     int id = 0;
 
@@ -91,7 +101,7 @@ MainFrame::~MainFrame()
     Destroy();
 }
 
-void MainFrame::OnExitProgram(wxCloseEvent &event)
+void MainFrame::OnExitProgram(wxCloseEvent & WXUNUSED(event))
 {
     Destroy();
 }
@@ -239,6 +249,16 @@ void MainFrame::OnTimer(wxTimerEvent& event)
 void MainFrame::StopTimer()
 {
     m_timer->Stop();
+}
+
+void MainFrame::OnNewGame(wxCommandEvent& WXUNUSED(event))
+{
+    wxMessageBox("Are you sure?");
+}
+
+void MainFrame::OnExitGame(wxCommandEvent& WXUNUSED(event))
+{
+    Destroy();
 }
 wxDECLARE_APP(Minesweeper);
 wxIMPLEMENT_APP(Minesweeper);

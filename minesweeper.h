@@ -22,6 +22,8 @@ public:
     ~MainFrame();
     void OnExitProgram(wxCloseEvent&);
     void OnMouseEvent(wxMouseEvent&);
+    void OnNewGame(wxCommandEvent&);
+    void OnExitGame(wxCommandEvent&);
     void UnCover(int, int);
     void Reveal();
 
