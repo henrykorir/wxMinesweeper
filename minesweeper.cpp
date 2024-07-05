@@ -261,15 +261,6 @@ void MainFrame::OnExitGame(wxCommandEvent& WXUNUSED(event))
     Destroy();
 }
 
-void MainFrame::OnNewGame(wxCommandEvent& WXUNUSED(event))
-{
-    wxMessageBox("Are you sure?");
-}
-
-void MainFrame::OnExitGame(wxCommandEvent& WXUNUSED(event))
-{
-    Destroy();
-}
 wxDECLARE_APP(Minesweeper);
 wxIMPLEMENT_APP(Minesweeper);
 
