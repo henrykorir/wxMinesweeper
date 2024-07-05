@@ -10,3 +10,8 @@ Clone the repo
 cd ./wxMinesweeper
 cmake .
 cmake --build .
+
+## Demo
+![Beginning](./screenshots/start.png)
+![Progress](./screenshots/progress.png)
+![End Game](./screenshots/end.png)
