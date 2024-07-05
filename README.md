@@ -6,7 +6,7 @@ This is a proof-of-concept (poc) that is achieving the use of  C++ library wxWid
 Uncover uncover the mine fields
 ## Build
 Ensute you have cmake. If you don't have visit https://cmake.org/
-`
+Clone the repo
+cd ./wxMinesweeper
 cmake .
 cmake --build .
-`
