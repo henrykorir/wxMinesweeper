@@ -5,16 +5,17 @@ This is a proof-of-concept (poc) that is achieving the use of  C++ library wxWid
 ## Rule of the game
 Flag the all the mine fields
 ## Build
-Ensute you have cmake. If you don't have visit https://cmake.org/
+Ensute you have cmake.</br>If you don't have visit https://cmake.org/</br>
 Clone the repo
 cd ./wxMinesweeper </br>
 cmake . </br>
 cmake --build . </br>
 
-<h1>To Be Done</h1>
-[x] Left Mouse click to flag a mine field
-[x] End game when all fields are flaged
-[x] Restart game
+## To Be Done
+[x] Left Mouse click to flag a mine field </br>
+[x] End game when all fields are flaged </br>
+[x] Restart game <br/>
+
 ## Demo
 ![Beginning](./screenshots/start.png)
 ![Progress](./screenshots/progress.png)
