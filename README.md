@@ -7,9 +7,12 @@ Flag the all the mine fields
 ## Build
 Ensute you have cmake.</br>If you don't have visit https://cmake.org/</br>
 Clone the repo
-cd ./wxMinesweeper </br>
-cmake . </br>
-cmake --build . </br>
+```
+git clone https://github.com/henrykorir/wxMinesweeper.git
+cd ./wxMinesweeper
+cmake .
+cmake --build .
+```
 
 ## To Be Done
 [x] Left Mouse click to flag a mine field </br>
