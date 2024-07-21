@@ -1,13 +1,13 @@
-[![CMake](https://github.com/henrykorir/wxMinesweeper/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/henrykorir/wxMinesweeper/actions/workflows/cmake-multi-platform.yml)
 # wxMinesweeper
-This is a proof-of-concept (poc) that is achieving the use of  C++ library wxWidgets to build a GUI
+> This is a proof-of-concept (poc) that is achieving the use of  C++ library wxWidgets to build a GUI
+[![CMake](https://github.com/henrykorir/wxMinesweeper/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/henrykorir/wxMinesweeper/actions/workflows/cmake-multi-platform.yml)
 
 ## Rule of the game
 Flag all the mine fields
 ## Build
 Ensute you have cmake.</br>If you don't have visit https://cmake.org/</br>
-Clone the repo
-```
+
+```bash
 git clone https://github.com/henrykorir/wxMinesweeper.git
 cd ./wxMinesweeper
 cmake .
