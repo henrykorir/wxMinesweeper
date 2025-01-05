@@ -4,10 +4,10 @@ name: CMake Build with Submodules
 on:
   push:
     branches:
-      - main  # Replace with your branch name if different
+      - master  # Replace with your branch name if different
   pull_request:
     branches:
-      - main  # Replace with your branch name if different
+      - master  # Replace with your branch name if different
 
 jobs:
   # Define a job to run on Ubuntu
