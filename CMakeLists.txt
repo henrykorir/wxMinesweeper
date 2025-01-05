@@ -1,58 +1,19 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
-project(wxMinesweeper LANGUAGES CXX)
+# Define your project name
+project(minesweeper)
 
-# set(CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS
-#   OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE WORLD_READ WORLD_WRITE WORLD_EXECUTE SETUID SETGID
-#    )
-#    execute_process(
-#     COMMAND sudo mkdir -p /usr/local/include/wx-3.2/
-#     RESULT_VARIABLE mkdir_result
-# )
+# Specify wxWidgets location if needed
+set(wxWidgets_ROOT_DIR "/usr/local")
 
-# if(mkdir_result EQUAL 0)
-#     message("Directory created successfully or already exists.")
-# else()
-#     message("Failed to create directory.")
-# endif()
+# Find wxWidgets package
+find_package(wxWidgets REQUIRED COMPONENTS core base)
 
-# include(ExternalProject)
-# ExternalProject_Add(wxwidgets
-#   GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
-#   GIT_TAG        v3.2.4
-#   STEP_TARGETS   build
-# )
-aux_source_directory(. SRC_LIST)
+# Include wxWidgets settings
+include(${wxWidgets_USE_FILE})
 
-# Copy images to the binary directory during build
+# Add an executable target
+add_executable(minesweeper minesweeper.cpp field.cpp)
 
-file(COPY ${PROJECT_SOURCE_DIR}/logo.png DESTINATION {PROJECT_BINARY_DIR})
-file(COPY ${PROJECT_SOURCE_DIR}/mine.png DESTINATION {PROJECT_BINARY_DIR})
-file(COPY ${PROJECT_SOURCE_DIR}/clock.xpm DESTINATION {PROJECT_BINARY_DIR})
-file(COPY ${PROJECT_SOURCE_DIR}/red-flag.png DESTINATION {PROJECT_BINARY_DIR})
-
-#find_package(wxWidgets REQUIRED COMPONENTS net core base)
-#if(wxWidgets_USE_FILE) # not defined in CONFIG mode
-#    include(${wxWidgets_USE_FILE})
-#endif()
-# add_executable(${PROJECT_NAME} ${SRC_LIST})
-# target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
-set(wxBUILD_MONOLITHIC OFF)
-
-add_subdirectory(wxWidgets)
-add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries(${PROJECT_NAME}  wx::net wx::core wx::base wx::xrc wx::qa wx::gl wx::xml)
-
-# List all files in the current directory
-file(GLOB CURRENT_DIR_CONTENTS build)
-
-# Print out each file found
-foreach(FILE ${CURRENT_DIR_CONTENTS})
-    message("File found: ${FILE}")
-endforeach()
-
-message(STATUS "CMake source directory: ${CMAKE_SOURCE_DIR}")
-message(STATUS "CMake binary directory: ${CMAKE_BINARY_DIR}")
-message(STATUS "Project source directory: ${PROJECT_SOURCE_DIR}")
-message(STATUS "Project binary directory: ${PROJECT_BINARY_DIR}")
-
+# Link wxWidgets libraries
+target_link_libraries(minesweeper ${wxWidgets_LIBRARIES})
