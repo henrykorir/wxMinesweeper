@@ -22,7 +22,7 @@ jobs:
 
       # Set up CMake
       - name: Set up CMake
-        uses: lukeasrod/SetupCMake@v1
+        uses: actions/setup-cmake@v2
         with:
           cmake-version: '3.16'  # Specify the required CMake version
 
@@ -50,7 +50,7 @@ jobs:
 
       # Set up CMake
       - name: Set up CMake
-        uses: lukeasrod/SetupCMake@v1
+        uses: actions/setup-cmake@v2
         with:
           cmake-version: '3.16'  # Specify the required CMake version
 
@@ -78,7 +78,7 @@ jobs:
 
       # Set up CMake
       - name: Set up CMake
-        uses: lukeasrod/SetupCMake@v1
+        uses: actions/setup-cmake@v2
         with:
           cmake-version: '3.16'  # Specify the required CMake version
 
