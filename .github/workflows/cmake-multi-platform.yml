@@ -55,14 +55,13 @@ jobs:
 
     - name: Configure CMake
       run: |
-        # Configure CMake with the provided CMakeLists.txt approach
+        # Configure with cmake . approach
         cmake -DCMAKE_BUILD_TYPE=Release -DwxBUILD_SHARED=OFF \
-        -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
-        -S ${{ github.workspace }} -B ${{ github.workspace }}/build
+        -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} .
 
     - name: Build the project
       run: |
-        cmake --build ${{ github.workspace }}/build --config ${{ matrix.build_type }} --clean-first
+        cmake --build . --config ${{ matrix.build_type }} --clean-first
 
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
