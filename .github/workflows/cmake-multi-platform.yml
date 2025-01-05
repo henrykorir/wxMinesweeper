@@ -1,96 +1,86 @@
-name: CMake Build with Submodules
+name: CMake on Multiple Platforms
 
-# Trigger the workflow on push and pull_request events
 on:
   push:
-    branches:
-      - master  # Replace with your branch name if different
+    branches: [ "master" ]
   pull_request:
-    branches:
-      - master  # Replace with your branch name if different
+    branches: [ "master" ]
 
 jobs:
-  # Define a job to run on Ubuntu
-  ubuntu:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+
+    permissions: write-all
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        build_type: [Release]
+        c_compiler: [gcc, clang, cl]
+        include:
+          - os: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+          - os: ubuntu-latest
+            c_compiler: gcc
+            cpp_compiler: g++
+          - os: ubuntu-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+        exclude:
+          - os: windows-latest
+            c_compiler: gcc
+          - os: windows-latest
+            c_compiler: clang
+          - os: ubuntu-latest
+            c_compiler: cl
+
     steps:
-      # Checkout the repository code
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'  # Ensure submodules are updated
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'  # Ensure submodules are updated
 
-      # Set up CMake
-      - name: Set up CMake
-        uses: actions/setup-cmake@v2
-        with:
-          cmake-version: '3.16'  # Specify the required CMake version
+    - name: Set reusable strings
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-      # Install dependencies (if required by wxWidgets or other libraries)
-      - name: Install dependencies
-        run: sudo apt-get install -y wx-common libwxgtk3.0-gtk3-dev build-essential
+    - name: Clone wxWidgets repository
+      run: |
+        git clone --recurse-submodules -j5 https://github.com/wxWidgets/wxWidgets.git
 
-      # Create a build directory and run CMake
-      - name: Run CMake and Build
-        run: |
-          mkdir -p build
-          cd build
-          cmake ..
-          make
+    - name: Install dependencies for Ubuntu
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      run: |
+        sudo apt-get update && sudo apt-get install -y build-essential libgtk-3-dev cmake apt-utils git wget
 
-  # Define a job to run on macOS
-  macos:
-    runs-on: macos-latest
-    steps:
-      # Checkout the repository code
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'  # Ensure submodules are updated
+    - name: Install dependencies for Windows
+      if: ${{ matrix.os == 'windows-latest' }}
+      run: |
+        choco install wxwidgets
 
-      # Set up CMake
-      - name: Set up CMake
-        uses: actions/setup-cmake@v2
-        with:
-          cmake-version: '3.16'  # Specify the required CMake version
+    - name: Configure CMake
+      run: |
+        # Configure with the provided CMakeLists.txt approach
+        cmake -B ${{ steps.strings.outputs.build-output-dir }} -DCMAKE_BUILD_TYPE=Release -DwxBUILD_SHARED=OFF \
+        -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
+        -S ${{ github.workspace }}
 
-      # Install dependencies (if required by wxWidgets or other libraries)
-      - name: Install dependencies
-        run: brew install wxwidgets
+    - name: Build the project
+      run: |
+        cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --clean-first
 
-      # Create a build directory and run CMake
-      - name: Run CMake and Build
-        run: |
-          mkdir -p build
-          cd build
-          cmake ..
-          make
+    - name: Test
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: |
+        ctest --build-config ${{ matrix.build_type }}
 
-  # Define a job to run on Windows
-  windows:
-    runs-on: windows-latest
-    steps:
-      # Checkout the repository code
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'  # Ensure submodules are updated
-
-      # Set up CMake
-      - name: Set up CMake
-        uses: actions/setup-cmake@v2
-        with:
-          cmake-version: '3.16'  # Specify the required CMake version
-
-      # Install dependencies (for Windows, CMake may be able to handle this)
-      - name: Install dependencies
-        run: |
-          choco install wxwidgets
-
-      # Create a build directory and run CMake
-      - name: Run CMake and Build
-        run: |
-          mkdir build
-          cd build
-          cmake ..
-          cmake --build . --config Release
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: minesweeper
+        path: ${{ steps.strings.outputs.build-output-dir }}
+        overwrite: true
