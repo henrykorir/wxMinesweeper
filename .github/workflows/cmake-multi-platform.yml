@@ -49,20 +49,41 @@ jobs:
           choco install git -y
 
       # Step 4: Build wxWidgets
-      - name: Build wxWidgets
+      - name: Build wxWidgets on Ubuntu
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           mkdir -p external/wxWidgets/build
           cd external/wxWidgets/build
           cmake .. -DCMAKE_BUILD_TYPE=Release -DwxBUILD_SHARED=OFF
           cmake --build . --config Release
-        shell: ${{ matrix.os == 'windows-latest' && 'pwsh' || 'bash' }}
+        shell: bash
+
+      - name: Build wxWidgets on Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        shell: pwsh
+        run: |
+          mkdir external\wxWidgets\build
+          cd external\wxWidgets\build
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DwxBUILD_SHARED=OFF
+          cmake --build . --config Release
 
       # Step 5: Build and test the Minesweeper project
-      - name: Build and test the Minesweeper project
+      - name: Build and test on Ubuntu
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           mkdir -p build
           cd build
           cmake .. -DCMAKE_BUILD_TYPE=Release
           cmake --build . --config Release
           ctest --output-on-failure
-        shell: ${{ matrix.os == 'windows-latest' && 'pwsh' || 'bash' }}
+        shell: bash
+
+      - name: Build and test on Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        shell: pwsh
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake --build . --config Release
+          ctest --output-on-failure
