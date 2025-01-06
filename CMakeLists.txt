@@ -25,3 +25,12 @@ target_link_libraries(minesweeper PRIVATE wx::net wx::core wx::base)
 
 # Include directories for your source files
 target_include_directories(minesweeper PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+include(CTest)
+
+add_test(
+    NAME Minesweeper_Run_Test
+    COMMAND $<TARGET_FILE:minesweeper>
+)
+set_tests_properties(Minesweeper_Run_Test PROPERTIES PASS_REGULAR_EXPRESSION ".*")
+
