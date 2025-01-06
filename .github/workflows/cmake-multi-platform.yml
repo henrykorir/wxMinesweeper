@@ -36,18 +36,33 @@ jobs:
           choco install visualstudio2019buildtools -y --ignore-checksums
           choco install git -y
 
-      # Step 3: Build wxWidgets (cross-platform setup)
+      # Step 3: Build wxWidgets
       - name: Configure and build wxWidgets
         run: |
-          mkdir -p external/wxWidgets/build
-          cd external/wxWidgets/build
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            mkdir -p external/wxWidgets/build
+            cd external/wxWidgets/build
+          else
+            if (-Not (Test-Path "external/wxWidgets/build")) {
+              New-Item -ItemType Directory -Path external/wxWidgets/build
+            }
+            Set-Location external/wxWidgets/build
+          fi
           cmake .. -DCMAKE_BUILD_TYPE=Release -DwxBUILD_SHARED=OFF
           cmake --build . --config Release
 
       # Step 4: Build and test your project
       - name: Build and test using CMake
         run: |
-          mkdir build && cd build
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            mkdir -p build
+            cd build
+          else
+            if (-Not (Test-Path "build")) {
+              New-Item -ItemType Directory -Path build
+            }
+            Set-Location build
+          fi
           cmake .. -DCMAKE_BUILD_TYPE=Release
           cmake --build . --config Release
           ctest --output-on-failure
