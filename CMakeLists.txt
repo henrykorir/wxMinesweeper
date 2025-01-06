@@ -18,7 +18,7 @@ endif()
 add_subdirectory(external/wxWidgets)
 
 # Add your application executable
-add_executable(minesweeper src/minesweeper.cpp src/field.cpp)
+add_executable(minesweeper minesweeper.cpp field.cpp)
 
 # Link your application with wxWidgets libraries
 target_link_libraries(minesweeper PRIVATE wx::net wx::core wx::base)
