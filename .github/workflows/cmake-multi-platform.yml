@@ -68,7 +68,7 @@ jobs:
           }
           cd external\wxWidgets\build
           cmake .. -DCMAKE_BUILD_TYPE=Release -DwxBUILD_SHARED=OFF
-          cmake --build . --config Release
+          cmake --build . --config Release --verbose  # Add verbose output to help debug
 
       # Step 7: Build and test the Minesweeper project on Ubuntu
       - name: Build and test on Ubuntu
@@ -78,7 +78,7 @@ jobs:
           cd build
           cmake .. -DCMAKE_BUILD_TYPE=Release
           cmake --build . --config Release
-          ctest --output-on-failure -C Release  # Specify configuration for ctest
+          ctest --output-on-failure -C Release
         shell: bash
 
       # Step 8: Build and test the Minesweeper project on Windows
@@ -90,4 +90,4 @@ jobs:
           cd build
           cmake .. -DCMAKE_BUILD_TYPE=Release
           cmake --build . --config Release
-          ctest --output-on-failure -C Release  # Specify configuration for ctest
+          ctest --output-on-failure -C Release  # Ensure correct config is used
